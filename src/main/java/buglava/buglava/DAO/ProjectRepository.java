@@ -12,16 +12,11 @@ import java.util.List;
  */
 public interface ProjectRepository extends CrudRepository<Project, Long>{
 
-    /*Project getById(long id);*/
-
-    @Query("select p from Project p where p.id = :id")
-    Project getProjectById(@Param("id") Integer id);
+    Project getById(Integer id);
 
     List<Project> findAll();
 
-/*    Project save(Project project);
+    Project save(Project project);
 
-    void update(Project project);
-
-    void delete(Long projectId);*/
+    void delete(Project project);
 }
