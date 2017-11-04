@@ -1,8 +1,9 @@
-package buglava.buglava.service;
+package buglava.buglava.service.impl;
 
 import buglava.buglava.DAO.ProjectRepository;
 import buglava.buglava.DAO.TaskRepository;
 import buglava.buglava.entity.*;
+import buglava.buglava.service.TaskService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
