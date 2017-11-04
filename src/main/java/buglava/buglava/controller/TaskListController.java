@@ -1,6 +1,5 @@
 package buglava.buglava.controller;
 
-import buglava.buglava.entity.Project;
 import buglava.buglava.entity.Task;
 import buglava.buglava.service.ProjectService;
 import buglava.buglava.service.TaskService;
@@ -24,7 +23,11 @@ public class TaskListController {
 
     @Autowired
     private TaskService taskService;
-    private ProjectService projectService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public JsonNode getAllTasks() {
+        return mapper.valueToTree(taskService.getAllTask());
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public JsonNode getTaskListByProjectId(@PathVariable("id") Integer id) throws JsonProcessingException {

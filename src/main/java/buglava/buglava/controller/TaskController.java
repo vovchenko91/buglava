@@ -1,6 +1,5 @@
 package buglava.buglava.controller;
 
-import buglava.buglava.entity.Project;
 import buglava.buglava.entity.Task;
 import buglava.buglava.service.TaskService;
 import com.fasterxml.jackson.core.JsonProcessingException;
