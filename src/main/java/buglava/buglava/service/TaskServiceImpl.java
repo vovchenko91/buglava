@@ -2,10 +2,7 @@ package buglava.buglava.service;
 
 import buglava.buglava.DAO.ProjectRepository;
 import buglava.buglava.DAO.TaskRepository;
-import buglava.buglava.entity.Project;
-import buglava.buglava.entity.Status;
-import buglava.buglava.entity.Task;
-import buglava.buglava.entity.Type;
+import buglava.buglava.entity.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +25,6 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> getAllTask() {
         return taskRepository.findAll();
-    }
-
-    @Override
-    public List<Task> getAllByProjectId(int projectId) {
-        return taskRepository.getTasksByProjectId(projectId);
     }
 
     @Override
@@ -62,16 +54,22 @@ public class TaskServiceImpl implements TaskService {
                         taskToUpdate.setStatus(Status.valueOf(entry.getValue()));
                         break;
                     case "priority":
-                        taskToUpdate.setPriority(Pri.valueOf(entry.getValue()));
+                        taskToUpdate.setPriority(Priority.valueOf(entry.getValue()));
                         break;
                 }
             }
         }
-        watchRepository.save(watchToUpdate);
+        taskRepository.save(taskToUpdate);
     }
 
     @Override
     public void removeTask(Integer taskId) {
-
+        try {
+            Task task = taskRepository.getById(taskId);
+            taskRepository.delete(task);
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

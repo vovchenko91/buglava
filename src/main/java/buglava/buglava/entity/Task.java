@@ -9,17 +9,19 @@ import javax.validation.constraints.NotNull;
  * Created by Vovchenko Denis on 11/3/2017.
  */
 @Entity
-@Table(name = "task")
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"name"})})
 public class Task {
 
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "project_id")
+    @NotNull
     private String name;
+    @Enumerated(EnumType.ORDINAL)
     private Type type;
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
+    @Enumerated(EnumType.ORDINAL)
     private Priority priority;
     private String description;
 
