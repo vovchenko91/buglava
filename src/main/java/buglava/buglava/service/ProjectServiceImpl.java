@@ -21,7 +21,6 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     ProjectRepository projectRepository;
 
-
     @Override
     public List<Project> getAllProjects() {
         return projectRepository.findAll();

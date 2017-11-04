@@ -2,6 +2,7 @@ package buglava.buglava.controller;
 
 import buglava.buglava.entity.Project;
 import buglava.buglava.service.ProjectService;
+import buglava.buglava.service.TaskService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,9 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private TaskService taskService;
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getProjectById(@PathVariable("id") Integer id) throws JsonProcessingException {
         Project projectById = projectService.getProjectById(id);
@@ -32,6 +36,7 @@ public class ProjectController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void removeProject(@PathVariable("id") Integer id) {
+        taskService.removeAllTaskByProjectId(id);
         projectService.removeProject(id);
     }
 

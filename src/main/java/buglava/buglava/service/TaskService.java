@@ -12,11 +12,15 @@ public interface TaskService {
 
     List<Task> getAllTask();
 
+    List<Task> getAllByProjectId(int projectId);
+
+    void removeAllTaskByProjectId(Integer projectById);
+
     Task getTaskById(int taskId);
 
     Task addNewTask(Task task);
 
     void updateTask(Integer taskId, Map<String, String> mapWithProps);
 
-    void removeTask(Integer taskId);
+    boolean removeTask(Integer taskId);
 }

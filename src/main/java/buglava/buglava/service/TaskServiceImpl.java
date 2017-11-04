@@ -20,11 +20,23 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     TaskRepository taskRepository;
+
+    @Autowired
     ProjectRepository projectRepository;
 
     @Override
     public List<Task> getAllTask() {
         return taskRepository.findAll();
+    }
+
+    @Override
+    public List<Task> getAllByProjectId(int projectId) {
+        return taskRepository.getAllByProjectId(projectId);
+    }
+
+    @Override
+    public void removeAllTaskByProjectId(Integer projectId) {
+        taskRepository.deleteAllTasksByProjectId(projectId);
     }
 
     @Override
@@ -34,6 +46,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task addNewTask(Task task) {
+        try {
+            Project project = task.getProject();
+            projectRepository.getById(project.getId());
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         return taskRepository.save(task);
     }
 
@@ -63,10 +82,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void removeTask(Integer taskId) {
+    public boolean removeTask(Integer taskId) {
         try {
             Task task = taskRepository.getById(taskId);
             taskRepository.delete(task);
+            return true;
         } catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException(e);

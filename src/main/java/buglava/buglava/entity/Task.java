@@ -15,12 +15,18 @@ public class Task {
     @Id
     @GeneratedValue
     private Integer id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_id")
+    private Project project;
     @NotNull
     private String name;
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     private Type type;
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     private Status status;
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     private Priority priority;
     private String description;
@@ -43,6 +49,14 @@ public class Task {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public String getName() {
