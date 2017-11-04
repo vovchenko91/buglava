@@ -17,8 +17,12 @@ public class ProjectListController {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    public ProjectListController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public JsonNode getAllProjects() {

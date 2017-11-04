@@ -21,8 +21,12 @@ public class TaskListController {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    @Autowired
     private TaskService taskService;
+
+    @Autowired
+    public TaskListController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public JsonNode getAllTasks() {

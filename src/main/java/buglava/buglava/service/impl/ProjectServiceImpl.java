@@ -1,10 +1,9 @@
 package buglava.buglava.service.impl;
 
-import buglava.buglava.DAO.ProjectRepository;
+import buglava.buglava.DAO.ProjectDao;
 import buglava.buglava.entity.Project;
 import buglava.buglava.service.ProjectService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,22 +18,25 @@ import java.util.Map;
 @Transactional
 public class ProjectServiceImpl implements ProjectService {
 
-    @Autowired
-    ProjectRepository projectRepository;
+    private ProjectDao projectDao;
+
+    public ProjectServiceImpl(ProjectDao projectDao) {
+        this.projectDao = projectDao;
+    }
 
     @Override
     public List<Project> getAllProjects() {
-        return projectRepository.findAll();
+        return projectDao.findAll();
     }
 
     @Override
     public Project getProjectById(Integer projectId) {
-        return projectRepository.getById(projectId);
+        return projectDao.getById(projectId);
     }
 
     @Override
     public Project addNewProject(Project project) {
-        return projectRepository.save(project);
+        return projectDao.save(project);
     }
 
     @Override
@@ -51,14 +53,13 @@ public class ProjectServiceImpl implements ProjectService {
             }
         }
 
-        projectRepository.save(projectToUpdate);
+        projectDao.save(projectToUpdate);
     }
 
     @Override
     public boolean removeProject(Integer projectId) {
         try {
-            Project project = projectRepository.getById(projectId);
-            projectRepository.delete(project);
+            projectDao.delete(projectId);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

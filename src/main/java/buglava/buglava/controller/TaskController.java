@@ -20,8 +20,12 @@ import java.util.Map;
 public class TaskController {
     private ObjectMapper mapper = new ObjectMapper();
 
+    private TaskService taskService;
+
     @Autowired
-    TaskService taskService;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getTaskById(@PathVariable("id") Integer id) throws JsonProcessingException {

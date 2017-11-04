@@ -21,11 +21,14 @@ import java.util.Map;
 public class ProjectController {
     private ObjectMapper mapper = new ObjectMapper();
 
-    @Autowired
     private ProjectService projectService;
+    private TaskService taskService;
 
     @Autowired
-    private TaskService taskService;
+    public ProjectController(ProjectService projectService, TaskService taskService) {
+        this.projectService = projectService;
+        this.taskService = taskService;
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getProjectById(@PathVariable("id") Integer id) throws JsonProcessingException {

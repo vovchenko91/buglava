@@ -1,4 +1,4 @@
-package buglava.buglava.DAO;
+package buglava.buglava.DAO.springdata;
 
 import buglava.buglava.entity.Task;
 import org.springframework.data.repository.CrudRepository;
