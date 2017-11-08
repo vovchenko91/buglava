@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Vovchenko Denis on 11/3/2017.
  */
 @RestController
-@RequestMapping("/lava/projects")
+@RequestMapping("/b1/projects")
 public class ProjectListController {
 
     private ObjectMapper mapper = new ObjectMapper();

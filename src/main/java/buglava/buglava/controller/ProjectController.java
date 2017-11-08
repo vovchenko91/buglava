@@ -17,7 +17,7 @@ import java.util.Map;
  * Created by Vovchenko Denis on 11/3/2017.
  */
 @RestController
-@RequestMapping("/lava/project")
+@RequestMapping("/b1/project")
 public class ProjectController {
     private ObjectMapper mapper = new ObjectMapper();
 

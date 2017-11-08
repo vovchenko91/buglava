@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by Vovchenko Denis on 11/4/2017.
  */
 @RestController
-@RequestMapping("/lava/task")
+@RequestMapping("/b1/task")
 public class TaskController {
     private ObjectMapper mapper = new ObjectMapper();
 

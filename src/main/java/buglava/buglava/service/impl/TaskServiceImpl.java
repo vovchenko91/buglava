@@ -2,9 +2,12 @@ package buglava.buglava.service.impl;
 
 import buglava.buglava.DAO.ProjectDao;
 import buglava.buglava.DAO.TaskDao;
+import buglava.buglava.DAO.springdata.ProjectRepository;
+import buglava.buglava.DAO.springdata.TaskRepository;
 import buglava.buglava.entity.*;
 import buglava.buglava.service.TaskService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,44 +21,47 @@ import java.util.Map;
 @Transactional
 public class TaskServiceImpl implements TaskService {
 
-    private TaskDao taskDao;
-    private ProjectDao projectDao;
+    @Autowired
+    private TaskRepository taskRepository;
 
-    public TaskServiceImpl(TaskDao taskDao, ProjectDao projectDao) {
-        this.taskDao = taskDao;
-        this.projectDao = projectDao;
+    @Autowired
+    private ProjectRepository projectRepository;
+
+    public TaskServiceImpl(TaskRepository taskRepository, ProjectRepository projectRepository) {
+        this.taskRepository = taskRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Override
     public List<Task> getAllTask() {
-        return taskDao.findAll();
+        return taskRepository.findAll();
     }
 
     @Override
     public List<Task> getAllByProjectId(int projectId) {
-        return taskDao.getAllByProjectId(projectId);
+        return taskRepository.getAllByProjectId(projectId);
     }
 
     @Override
     public void removeAllTaskByProjectId(Integer projectId) {
-        taskDao.deleteAllTasksByProjectId(projectId);
+        taskRepository.deleteAllTasksByProjectId(projectId);
     }
 
     @Override
     public Task getTaskById(int taskId) {
-        return taskDao.getById(taskId);
+        return taskRepository.getById(taskId);
     }
 
     @Override
     public Task addNewTask(Task task) {
         try {
             Project project = task.getProject();
-            projectDao.getById(project.getId());
+            projectRepository.getById(project.getId());
         } catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        return taskDao.save(task);
+        return taskRepository.save(task);
     }
 
     @Override
@@ -80,13 +86,14 @@ public class TaskServiceImpl implements TaskService {
                 }
             }
         }
-        taskDao.save(taskToUpdate);
+        taskRepository.save(taskToUpdate);
     }
 
     @Override
     public boolean removeTask(Integer taskId) {
         try {
-            taskDao.delete(taskId);
+            Task task = taskRepository.getById(taskId);
+            taskRepository.delete(task);
             return true;
         } catch (Exception e){
             e.printStackTrace();

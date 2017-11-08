@@ -16,7 +16,6 @@ import java.util.Optional;
  * Created by Vovchenko Denis on 11/4/2017.
  */
 @Repository
-@Transactional(readOnly = true)
 public class JpaProjectDao implements ProjectDao {
 
     @PersistenceContext

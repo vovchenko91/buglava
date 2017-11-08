@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Vovchenko Denis on 11/4/2017.
  */
 @RestController
-@RequestMapping("/lava/tasks")
+@RequestMapping("/b1/tasks")
 public class TaskListController {
 
     private ObjectMapper mapper = new ObjectMapper();
